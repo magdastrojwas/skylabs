@@ -27,22 +27,6 @@ class App extends Component {
         }));
 
     voteOnAnswer = ({ pollId, answerId }) => {
-        const prevPoll = this.state.polls.find(poll => poll.id === pollId);
-        const answer = prevPoll.answers.find(answer => answer.id === answerId);
-        const newAnswer = { ...answer, votes: answer.votes + 1 };
-
-        const answers = prevPoll.answers.map(
-            answer => (answer.id === answerId ? newAnswer : answer)
-        );
-
-        const polls = this.state.polls.map(
-            poll => (poll.id === pollId ? { ...prevPoll, answers } : poll)
-        );
-
-        this.setState({ polls });
-    };
-
-    voteOnAnswer = ({ pollId, answerId }) => {
         const answers = this.state.answers.map(
             answer =>
                 answer.id === answerId && answer.pollId === pollId

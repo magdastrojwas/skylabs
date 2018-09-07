@@ -15,7 +15,7 @@ export class Form extends Component {
     onAddAnswer = event => {
         event.preventDefault();
 
-        if (this.state.answerInput !== '') {
+        if (this.state.answerInput.length > 0) {
             this.setState(state => ({
                 answerInput: '',
                 answers: [
@@ -50,7 +50,7 @@ export class Form extends Component {
             const pollAnswers = answers.map(answer => ({ ...answer, pollId: id }));
 
             this.props.addPoll({ poll, pollAnswers });
-            this.setState({ question: '', answers: [] });
+            this.setState({ question: '', answers: [], answerInput: '' });
         }
     };
 
