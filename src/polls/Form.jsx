@@ -88,9 +88,7 @@ export class Form extends Component {
                                             this.onRemoveAnswer(answer.id);
                                         }}
                                     >
-                                        <span role="img" aria-label="Delete answer">
-                                            ❌
-                                        </span>
+                                        <i className="fa fa-times" />
                                     </button>
                                     {answer.name}
                                 </li>

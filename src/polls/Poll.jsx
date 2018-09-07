@@ -10,26 +10,24 @@ export class Poll extends Component {
                     <div className="answer" key={answer.id}>
                         {answer.name} ({answer.votes})
                         <button
-                            className="answer-vote-btn"
+                            className="icon-btn answer-vote-btn"
                             onClick={e => {
                                 e.preventDefault();
                                 voteOnAnswer({ pollId: this.props.id, answerId: answer.id });
                             }}
                         >
-                            <span role="img" aria-label="Vote">
-                                👍
-                            </span>
+                            <i className="fa fa-thumbs-up" />
                         </button>
                     </div>
                 ))}
                 <button
-                    className="poll-remove-btn"
+                    className="icon-btn poll-remove-btn"
                     onClick={e => {
                         e.preventDefault();
                         removePoll(this.props.id);
                     }}
                 >
-                    Delete poll
+                    <i className="fa fa-trash" />
                 </button>
             </div>
         );
