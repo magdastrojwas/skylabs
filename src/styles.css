@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: space-between;
+    background-color: #333;
+    height: 40px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title,
+.App-logo,
+.App-brand {
+    font-size: 1.75em;
+    width: 200px;
+}
+
+.App-brand {
+    color: dodgerblue;
+}
