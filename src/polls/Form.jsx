@@ -60,7 +60,7 @@ export class Form extends Component {
         return (
             <div className="form-container">
                 <div className="form">
-                    <h3>Add new poll</h3>
+                    <h2>Add new poll</h2>
                     <label>Poll question</label>
                     <input
                         type="text"
@@ -72,7 +72,7 @@ export class Form extends Component {
                     <input
                         type="text"
                         value={this.state.answerInput}
-                        placeholder="Add answer"
+                        placeholder="type answer"
                         onKeyDown={e => e.key === 'Enter' && this.onAddAnswer(e)}
                         onChange={this.handleAnswerInputChange}
                     />
@@ -94,7 +94,7 @@ export class Form extends Component {
                                 </li>
                             ))}
                     </ul>
-                    <button onClick={this.handlePollFormSubmit}>Add poll</button>
+                    <button className="add-poll-btn" onClick={this.handlePollFormSubmit}>Add poll</button>
                 </div>
             </div>
         );
