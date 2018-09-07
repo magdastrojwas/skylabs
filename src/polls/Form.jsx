@@ -1,31 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import nano from 'nanoid';
 
-const FormContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    label,
-    input,
-    span {
-        margin-bottom: 5px;
-    }
-
-    button {
-        margin-bottom: 20px;
-    }
-`;
-
-const Form = styled.div`
-    width: 100%;
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-`;
-
-export class AddPollForm extends Component {
+export class Form extends Component {
     state = {
         question: '',
         answers: [],
@@ -40,13 +16,13 @@ export class AddPollForm extends Component {
         event.preventDefault();
 
         if (this.state.answerInput !== '') {
-            this.setState(previousState => ({
+            this.setState(state => ({
                 answerInput: '',
                 answers: [
-                    ...previousState.answers,
+                    ...state.answers,
                     {
                         id: nano(),
-                        name: previousState.answerInput,
+                        name: state.answerInput,
                         votes: 0,
                     },
                 ],
@@ -55,24 +31,35 @@ export class AddPollForm extends Component {
     };
 
     onRemoveAnswer = id =>
-        this.setState(previousState => ({
-            ...previousState,
-            answers: previousState.answers.filter(answer => answer.id !== id),
+        this.setState(state => ({
+            ...state,
+            answers: state.answers.filter(answer => answer.id !== id),
         }));
 
     handlePollFormSubmit = event => {
         event.preventDefault();
         const { question, answers } = this.state;
-        this.props.addPoll({ question, answers });
-        this.setState({ question: '', answers: [] });
+
+        if (question.length > 0 && answers.length > 0) {
+            const id = nano();
+            const poll = {
+                id,
+                question,
+            };
+
+            const pollAnswers = answers.map(answer => ({ ...answer, pollId: id }));
+
+            this.props.addPoll({ poll, pollAnswers });
+            this.setState({ question: '', answers: [] });
+        }
     };
 
     render() {
         const { answers } = this.state;
 
         return (
-            <FormContainer>
-                <Form>
+            <div className="form-container">
+                <div className="form">
                     <h3>Add new poll</h3>
                     <label>Poll question</label>
                     <input
@@ -86,24 +73,32 @@ export class AddPollForm extends Component {
                         type="text"
                         value={this.state.answerInput}
                         placeholder="Add answer"
+                        onKeyDown={e => e.key === 'Enter' && this.onAddAnswer(e)}
                         onChange={this.handleAnswerInputChange}
-                        />
+                    />
                     <button onClick={this.onAddAnswer}>Add answer</button>
+                    <ul>
                         {answers.length > 0 &&
                             answers.map(answer => (
-                                <span
-                                    key={answer.id}
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        this.onRemoveAnswer(answer.id);
-                                    }}
-                                >
+                                <li key={answer.id}>
+                                    <button
+                                        className="answer-remove-btn"
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.onRemoveAnswer(answer.id);
+                                        }}
+                                    >
+                                        <span role="img" aria-label="Delete answer">
+                                            ❌
+                                        </span>
+                                    </button>
                                     {answer.name}
-                                </span>
+                                </li>
                             ))}
+                    </ul>
                     <button onClick={this.handlePollFormSubmit}>Add poll</button>
-                </Form>
-            </FormContainer>
+                </div>
+            </div>
         );
     }
 }

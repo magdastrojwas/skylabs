@@ -29,3 +29,104 @@ body {
 .App-brand {
     color: dodgerblue;
 }
+
+/* PollsList */
+
+.list-container {
+    display: flex;
+    justify-content: center;
+}
+
+.list {
+    margin: 20px 0;
+    width: 70%;
+}
+
+/* Poll */
+.poll {
+    margin: 25px 0;
+    position: relative;
+}
+
+.poll-remove-btn {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.poll:hover .poll-remove-btn {
+    display: initial;
+}
+
+.answer {
+    margin-bottom: 20px;
+}
+
+.answer-vote-btn {
+    background: dodgerblue;
+}
+
+.answer-vote-btn,
+.answer-remove-btn {
+    box-sizing: content-box;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding: 0;
+    border-radius: 50%;
+    text-decoration: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+}
+
+/* AddPollForm */
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form label,
+.form input,
+.form span {
+    margin-bottom: 5px;
+}
+
+.form label,
+.form ul {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+}
+
+.form button {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.form {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.answer-remove-btn {
+    margin-right: 10px;
+    background: white;
+    border: 1px dashed crimson;
+    color: crimson;
+}
+
+button,
+input {
+    border-radius: 5px;
+    padding: 4px 2px;
+}
+
+button:hover {
+    cursor: pointer;
+}

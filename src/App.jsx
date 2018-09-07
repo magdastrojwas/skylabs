@@ -1,35 +1,29 @@
 import React, { Component } from 'react';
-import nano from 'nanoid';
 
 import './styles.css';
-import { mockedPolls } from './mockedPolls';
+import { polls, answers } from './mockedData';
 import { Header } from './Header';
 
 import { PollsList } from './polls/PollsList';
-import { AddPollForm } from './polls/AddPollForm';
+import { Form } from './polls/Form';
 
 class App extends Component {
     state = {
-        polls: mockedPolls,
+        polls,
+        answers,
     };
 
-    addPoll = ({ question, answers }) => {
-        const id = nano();
-
-        const newPoll = {
-            id,
-            question,
-            answers,
-        };
-
-        this.setState(previousState => ({
-            polls: [...previousState.polls, newPoll],
+    addPoll = ({ poll, pollAnswers }) => {
+        this.setState(state => ({
+            polls: [...state.polls, poll],
+            answers: [...state.answers, ...pollAnswers],
         }));
     };
 
     removePoll = id =>
         this.setState(state => ({
             polls: state.polls.filter(poll => poll.id !== id),
+            answers: state.answers.filter(answer => answer.pollId !== id),
         }));
 
     voteOnAnswer = ({ pollId, answerId }) => {
@@ -48,16 +42,30 @@ class App extends Component {
         this.setState({ polls });
     };
 
+    voteOnAnswer = ({ pollId, answerId }) => {
+        const answers = this.state.answers.map(
+            answer =>
+                answer.id === answerId && answer.pollId === pollId
+                    ? { ...answer, votes: answer.votes + 1 }
+                    : answer
+        );
+
+        this.setState({
+            answers,
+        });
+    };
+
     render() {
         return (
             <div className="App">
                 <Header />
                 <PollsList
                     polls={this.state.polls}
+                    answers={this.state.answers}
                     removePoll={this.removePoll}
                     voteOnAnswer={this.voteOnAnswer}
                 />
-                <AddPollForm addPoll={this.addPoll} />
+                <Form addPoll={this.addPoll} />
             </div>
         );
     }

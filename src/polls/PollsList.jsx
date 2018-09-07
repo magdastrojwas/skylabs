@@ -1,32 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { PollListItem } from './PollListItem';
+import { Poll } from './Poll';
 
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const List = styled.div`
-    margin: 20px 0;
-    width: 70%;
-`;
-
-export const PollsList = ({ polls, removePoll, voteOnAnswer }) => (
-    <Container>
-        <List>
+export const PollsList = ({ polls, answers, removePoll, voteOnAnswer }) => (
+    <div className="list-container">
+        <div className="list">
             {polls.length > 0 &&
-                polls.map(({ id, question, answers }) => (
-                    <PollListItem
-                        key={id}
-                        id={id}
-                        question={question}
-                        answers={answers}
-                        voteOnAnswer={voteOnAnswer}
-                        removePoll={removePoll}
-                    />
-                ))}
-        </List>
-    </Container>
+                polls.map(({ id, question }) => {
+                    const pollAnswers = answers.filter(answer => answer.pollId === id);
+                    return (
+                        <Poll
+                            key={id}
+                            id={id}
+                            question={question}
+                            answers={pollAnswers}
+                            voteOnAnswer={voteOnAnswer}
+                            removePoll={removePoll}
+                        />
+                    );
+                })}
+        </div>
+    </div>
 );
